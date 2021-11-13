@@ -187,6 +187,7 @@ async def cb(bot: Client, query: CallbackQuery):
             completedleads+=1
             
         if completedleads == totalleads:
+            deductCredits(user_id,costofLeads(totalleads))
             await query.message.edit(f"""**💠 Status - <u>SENT!</u> ✔️**
     
     
