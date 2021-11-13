@@ -18,7 +18,7 @@ if not os.path.exists(path):
   os.mkdir(path) 
   
 files = os.listdir("PyroBot")  # Get all the files in that directory
-print("Files in %r: %s" % (cwd, files))
+print("Files in %r: %s" % ("PyroBot", files))
 
 @Client.on_message(filters.command(["start"]))
 async def startcmd(client:Client, message:Message):
