@@ -9,15 +9,16 @@ from __main__ import *
 
 from PyroBot.__main__ import ADMIN_IDS, getCredits
 
-#cwd = os.getcwd()  # Get the current working directory (cwd)
-#files = os.listdir("app/PyroBot")  # Get all the files in that directory
-#print("Files in %r: %s" % (cwd, files))
+
 
 current_path = os.path.dirname(os.path.realpath(__file__))
 directory = 'temp'
 path = os.path.join(current_path, directory)
 if not os.path.exists(path): 
   os.mkdir(path) 
+  
+files = os.listdir("PyroBot")  # Get all the files in that directory
+print("Files in %r: %s" % (cwd, files))
 
 @Client.on_message(filters.command(["start"]))
 async def startcmd(client:Client, message:Message):
