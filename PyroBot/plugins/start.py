@@ -111,12 +111,15 @@ async def ookk(_, m):
 
 @Client.on_message(filters.command(["test"]))
 async def ookk(_, m):
-    sp = m.text.split(None, 1)
     user_id = m.from_user.id
     
     if not isPremium(user_id):
         return await m.reply("You are not authorized!")
     
+    try:
+        sp = m.text.split(None, 1)
+    except:
+        return await m.reply("**Provide Number! Format: /test +number**")
     if sp:
         responsesms = await sendSMS(sp[1],"Test message by Spammer Bot")
         await m.reply(f"""Sent SMS to {sp[1]} - {responsesms}
@@ -221,7 +224,6 @@ async def upgrade(client:Client, message:Message):
 
     try:
         user_id = sp[1].split("|")[0]
-        credits = sp[1].split("|")[1]
     except:
         return await kek.edit("**Provide UserId! Format: UserId**")
     
