@@ -38,7 +38,7 @@ async def myaccmd(client:Client, message:Message):
     if not isPremium(user_id):
         return
     user_mention = message.from_user.mention if message.from_user else message.from_user.title  
-    await message.reply(f'**Name:**  `{user_mention}`\n**UserID:**  `{user_id}`\n**Type:**  `Premium`\n**Credits:**  `{getCredits(user_id)}`')
+    await message.reply(f'**Name:**  `{user_mention}`\n**UserID:**  `{user_id}`\n**Type:**  `Premium`\n**Credits:**  `{getCredits(user_id)}`', quote=True)
         
 @Client.on_callback_query(filters.regex(r"^help_.*"))
 async def cbstart(_, query: CallbackQuery):
