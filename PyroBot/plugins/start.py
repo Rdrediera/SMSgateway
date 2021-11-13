@@ -108,7 +108,7 @@ async def spamleads(_, m):
     
     filedl = requests.get('https://api.telegram.org/file/bot'+BOT_TOKEN+'/'+filepath)
     dllines = filedl.text.splitlines()
-    with open('../temp/leads'+str(m.from_user.id)+'.txt', 'w') as file:
+    with open('PyroBot/temp/leads'+str(m.from_user.id)+'.txt', 'w') as file:
         for line in dllines:
             leadscount+=1
             file.write(line+'\n')
@@ -117,7 +117,7 @@ async def spamleads(_, m):
         if hasCredits != True:
             return await m.reply(f"**You don't have enough credits!\n\nYour Credits:- `{getCredits(user_id)}`**\nThis costs:- `{costofLeads(leadscount)}`**", quote=True)
     
-    with open('../temp/msg'+str(m.from_user.id)+'.txt', 'w', encoding="utf-8") as file:
+    with open('PyroBot/temp/msg'+str(m.from_user.id)+'.txt', 'w', encoding="utf-8") as file:
             file.write(filecaption)
             
     await m.reply("**Are you Sure? **", 
