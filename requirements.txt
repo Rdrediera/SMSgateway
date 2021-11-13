@@ -3,3 +3,4 @@ python-decouple
 requests
 mysql.connector
 TgCrypto
+pymysql
