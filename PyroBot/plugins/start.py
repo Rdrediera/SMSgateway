@@ -208,6 +208,33 @@ async def upgrade(client:Client, message:Message):
 
     await kek.edit(txt)
     
+@Client.on_message(filters.command(["credits"]))
+async def upgrade(client:Client, message:Message):
+    if not message.from_user.id in ADMIN_IDS:
+        return 
+    
+    sp = message.text.split(None, 1)
+    if len(sp) == 1:
+        return await message.reply("**Provide UserId! Format: UserId**", quote=True)  
+    
+    kek = await message.reply("**Getting credits...**", quote=True)
+
+    try:
+        user_id = sp[1].split("|")[0]
+        credits = sp[1].split("|")[1]
+    except:
+        return await kek.edit("**Provide UserId! Format: UserId**")
+    
+    
+    upgrade = getCredits(user_id)
+    if upgrade != True:
+        txt = f"**Couldn't fetch user credits from database**"
+    else:
+        txt = f"**Fetched credits!**\n**User ID:** `{user_id}`\n**Credits:** `{upgrade}`"
+     
+
+    await kek.edit(txt)
+    
     
 @Client.on_message(filters.command(["suspend"]))
 async def suspend(client:Client, message:Message):
