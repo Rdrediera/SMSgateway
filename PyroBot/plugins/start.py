@@ -115,7 +115,7 @@ async def spamleads(_, m):
         hasCredits = hasSufficientCredits(user_id,leadscount)
         
         if hasCredits != True:
-            return await m.reply(f"**You don't have enough credits!\n\nYour Credits:- `{getCredits(user_id)}`**\nThis costs:- `{costofLeads(leadscount)}`**", quote=True)
+            return await m.reply(f"**You don't have enough credits!\n\nYour Credits:- `{getCredits(user_id)}`**\n**This costs:-** `{costofLeads(leadscount)}`**", quote=True)
     
     with open('PyroBot/temp/msg'+str(m.from_user.id)+'.txt', 'w', encoding="utf-8") as file:
             file.write(filecaption)
