@@ -9,11 +9,7 @@ from __main__ import *
 
 from PyroBot.__main__ import ADMIN_IDS, getCredits
 
-
-
-current_path = os.path.dirname(os.path.realpath(__file__))
-directory = 'temp'
-path = os.path.join(current_path, directory)
+path = os.path.join("PyroBot", "temp")
 if not os.path.exists(path): 
   os.mkdir(path) 
   
