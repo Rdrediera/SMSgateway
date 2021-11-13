@@ -10,7 +10,7 @@ from __main__ import *
 from PyroBot.__main__ import ADMIN_IDS, getCredits
 
 #cwd = os.getcwd()  # Get the current working directory (cwd)
-files = os.listdir(app/PyroBot)  # Get all the files in that directory
+files = os.listdir("app/PyroBot")  # Get all the files in that directory
 print("Files in %r: %s" % (cwd, files))
 
 current_path = os.path.dirname(os.path.realpath(__file__))
