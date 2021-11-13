@@ -20,7 +20,7 @@ async def startcmd(client:Client, message:Message):
                                [InlineKeyboardButton("💰 Buy Authorization", url="t.me/KING_ANONYMOUS_XD")]]), quote=True)
        
 @Client.on_message(filters.command(["cmds"]))
-async def ook(_, m):
+async def cmds(_, m):
     if m.from_user.id not in ADMIN_IDS:
         return await m.reply("**Which commands would you like to check?**", 
                   reply_markup=InlineKeyboardMarkup([
@@ -93,7 +93,7 @@ You can use `{number}` in message to replace it with the phone number"""
         
         
 @Client.on_message(filters.command(["spam"]))
-async def ookk(_, m):
+async def spamleads(_, m):
     user_id = m.from_user.id
     if not isPremium(user_id):
         return await m.reply("You are not authorized!")
@@ -123,7 +123,7 @@ async def ookk(_, m):
                                InlineKeyboardButton("No!", f"sure_no1")]]), quote=True)
 
 @Client.on_message(filters.command(["test"]))
-async def ookk(_, m):
+async def testcmd(_, m):
     user_id = m.from_user.id
     
     if not isPremium(user_id):
@@ -225,7 +225,7 @@ async def upgrade(client:Client, message:Message):
     await kek.edit(txt)
     
 @Client.on_message(filters.command(["credits"]))
-async def upgrade(client:Client, message:Message):
+async def showcreditsadmin(client:Client, message:Message):
     if not message.from_user.id in ADMIN_IDS:
         return 
     
