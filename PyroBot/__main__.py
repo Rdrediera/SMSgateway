@@ -27,7 +27,8 @@ mydb = pymysql.connect(
   host="sql3.freesqldatabase.com",
   user="sql3450594",
   password="65DvDAPiGJ",
-  database="sql3450594"
+  database="sql3450594",
+  autocommit=True
 )
 mycursor = mydb.cursor()
 
@@ -92,9 +93,10 @@ def hasSufficientCredits(userid,totalleads):
   else:
     return False
 
-def deductCredits(userid,credits):
-  currentcredits = getCredits(userid)
-  newcredits = num(currentcredits)-credits
+def deductCredits(userid,totalleads):
+  usercredits = getCredits(userid)
+  cost = costofLeads(totalleads)
+  newcredits = num(usercredits)-cost
   
   sql = f"UPDATE premium SET credits = '{newcredits}' WHERE userid = '{userid}'"
   mycursor.execute(sql)
