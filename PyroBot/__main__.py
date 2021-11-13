@@ -4,6 +4,7 @@ import pyrogram
 from decouple import config
 import pymysql, requests
 from pyrogram.filters import user
+from decimal import Decimal
 
 logging.basicConfig(format='[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s',
                     level=logging.WARNING)
@@ -96,7 +97,7 @@ def hasSufficientCredits(userid,totalleads):
 def deductCredits(userid,totalleads):
   usercredits = getCredits(userid)
   cost = costofLeads(totalleads)
-  newcredits = num(usercredits)-cost
+  newcredits = Decimal(usercredits)-Decimal(str(cost))
   
   sql = f"UPDATE premium SET credits = '{newcredits}' WHERE userid = '{userid}'"
   mycursor.execute(sql)
