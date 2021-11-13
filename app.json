@@ -1,0 +1,40 @@
+{
+    "name": "SMS Gateway",
+    "description": "Bot which scrap cc from Telegram groups/channels.",
+    "keywords": "None",
+    "repository": "https://github.com/iam-NVN/smsgateway",
+    "env": {
+        "API_HASH": {
+            "description": "API Hash",
+            "required": true,
+            "value": ""
+        },"API_ID": {
+            "description": "API ID",
+            "required": true,
+            "value": ""
+        },"BOT_TOKEN": {
+            "description": "Bot Token",
+            "required": true,
+            "value": ""
+        },"AUTH_IDS": {
+            "description": "Auth IDs",
+            "required": true,
+            "value": ""
+        },"ADMIN_IDS": {
+            "description": "Admin IDs",
+            "required": true,
+            "value": ""
+        }
+    },
+    "buildpacks": [
+        {
+            "url": "heroku/python"
+        }
+    ],
+    "formation": {
+        "worker": {
+            "quantity": 1,
+            "size": "free"
+        }
+    }
+}
