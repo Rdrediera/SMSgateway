@@ -1,6 +1,7 @@
 # @NinjaTestBcBot
+# Turn off Heroku app once work is done to save dynos
 
-## #To-Do
+## To-Do
 
 - [ ] /myacc and /mycredits command
 - [ ] deduct credits on check
