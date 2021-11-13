@@ -17,20 +17,20 @@ async def startcmd(client:Client, message:Message):
     await message.reply_text(f'**Hello** {user_mention}, \n\n**Type /cmds to know all my commands!**', 
                   reply_markup=InlineKeyboardMarkup([
                                [InlineKeyboardButton("💠 Developer", url="t.me/ninjanaveen")],
-                               [InlineKeyboardButton("💰 Buy Authorization", url="t.me/KING_ANONYMOUS_XD")]]))
+                               [InlineKeyboardButton("💰 Buy Authorization", url="t.me/KING_ANONYMOUS_XD")]]), quote=True)
        
 @Client.on_message(filters.command(["cmds"]))
 async def ook(_, m):
     if m.from_user.id not in ADMIN_IDS:
         return await m.reply("**Which commands would you like to check?**", 
                   reply_markup=InlineKeyboardMarkup([
-                               [InlineKeyboardButton("☎️ SMS Gateway Commands", f"help_gateway")]]))
+                               [InlineKeyboardButton("☎️ SMS Gateway Commands", f"help_gateway")]]), quote=True)
     
     if m.from_user.id in ADMIN_IDS:
         return await m.reply("**Which commands would you like to check?**", 
                   reply_markup=InlineKeyboardMarkup([
                                [InlineKeyboardButton("☎️ SMS Gateway Commands", f"help_gateway")],
-                               [InlineKeyboardButton("🎖 Admin Commands", f"help_admin")]]))
+                               [InlineKeyboardButton("🎖 Admin Commands", f"help_admin")]]), quote=True)
 
 @Client.on_message(filters.command(["myacc"]))
 async def myaccmd(client:Client, message:Message):
@@ -94,8 +94,10 @@ You can use `{number}` in message to replace it with the phone number"""
         
 @Client.on_message(filters.command(["spam"]))
 async def ookk(_, m):
+    user_id = m.from_user.id
     if not isPremium(user_id):
         return await m.reply("You are not authorized!")
+    leadscount = 0
     file_id = m.reply_to_message.document.file_id
     filecaption = m.reply_to_message.caption
     filereq = requests.get('https://api.telegram.org/bot'+BOT_TOKEN+'/getFile?file_id='+file_id)
@@ -105,7 +107,12 @@ async def ookk(_, m):
     dllines = filedl.text.splitlines()
     with open('temp/leads'+str(m.from_user.id)+'.txt', 'w') as file:
         for line in dllines:
+            leadscount+=1
             file.write(line+'\n')
+        hasCredits = hasSufficientCredits(user_id)
+        
+        if hasCredits != True:
+            return await m.reply(f"**You don't have enough credits!\n\nYour Credits:- `{getCredits(user_id)}`**\nThis costs:- `{costofLeads(leadscount)}`**", quote=True)
     
     with open('temp/msg'+str(m.from_user.id)+'.txt', 'w', encoding="utf-8") as file:
             file.write(filecaption)
@@ -113,24 +120,24 @@ async def ookk(_, m):
     await m.reply("**Are you Sure? **", 
                   reply_markup=InlineKeyboardMarkup([
                                [InlineKeyboardButton("Yes!", f"sure_yes1"),
-                               InlineKeyboardButton("No!", f"sure_no1")]]))
+                               InlineKeyboardButton("No!", f"sure_no1")]]), quote=True)
 
 @Client.on_message(filters.command(["test"]))
 async def ookk(_, m):
     user_id = m.from_user.id
     
     if not isPremium(user_id):
-        return await m.reply("You are not authorized!")
+        return await m.reply("You are not authorized!", quote=True)
     
     try:
         sp = m.text.split(None, 1)
     except:
-        return await m.reply("**Provide Number! Format: /test +number**")
+        return await m.reply("**Provide Number! Format: /test +number**", quote=True)
     if sp:
         responsesms = await sendSMS(sp[1],"Test message by Spammer Bot")
         await m.reply(f"""Sent SMS to {sp[1]} - {responsesms}
 
-**Spamming /test command will lead to BAN!**""")
+**Spamming /test command will lead to BAN!**""", quote=True)
         for admin in ADMIN_IDS:
             await Client.send_message(chat_id=admin, text=f"{m.from_user.id} Sent a test SMS to {sp[1]}", self=app)
 
@@ -205,7 +212,7 @@ async def upgrade(client:Client, message:Message):
         user_id = sp[1].split("|")[0]
         credits = sp[1].split("|")[1]
     except:
-        return await kek.edit("**Provide UserId And Credits! Format: UserId|Credits**")
+        return await kek.edit("**Provide UserId And Credits! Format: UserId|Credits**", quote=True)
     
     
     upgrade = addPremium(user_id,credits)

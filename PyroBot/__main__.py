@@ -3,6 +3,7 @@ import logging
 import pyrogram
 from decouple import config
 import pymysql, requests
+from pyrogram.filters import user
 
 logging.basicConfig(format='[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s',
                     level=logging.WARNING)
@@ -77,6 +78,20 @@ def getCredits(userid):
   result = mycursor.fetchall()
   return result[0][0]
 
+def costofLeads(totalleads):
+  return totalleads*DEDUCTION_PER_SEND
+
+def hasSufficientCredits(userid,totalleads):
+  usercredits = getCredits(userid)
+  cost = costofLeads(totalleads)
+  
+  if userid in ADMIN_IDS:
+    return True
+  elif usercredits >= cost:
+    return True
+  else:
+    return False
+
 def deductCredits(userid,credits):
   currentcredits = getCredits(userid)
   newcredits = num(currentcredits)-num(credits)
@@ -115,5 +130,6 @@ if __name__ == "__main__" :
         plugins=plugins
     )
     app.run()
+    print("Bot has been successfully deployed!")
     
     
