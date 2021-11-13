@@ -37,6 +37,8 @@ def num(s):
         return float(s)
       
 def isPremium(userid):
+  if userid in ADMIN_IDS:
+    return True
   sql = f"SELECT * FROM premium WHERE userid = {userid}"
   resp = mycursor.execute(sql)
   result = mycursor.fetchall()
@@ -62,6 +64,8 @@ def addPremium(userid,credits):
         
 
 def banPremium(userid):
+  if userid in ADMIN_IDS:
+    return False
   sql = f"DELETE FROM premium WHERE userid='{userid}'"
   mycursor.execute(sql)
   mydb.commit()
