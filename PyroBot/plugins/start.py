@@ -112,7 +112,7 @@ async def spamleads(_, m):
         for line in dllines:
             leadscount+=1
             file.write(line+'\n')
-        hasCredits = hasSufficientCredits(user_id)
+        hasCredits = hasSufficientCredits(user_id,leadscount)
         
         if hasCredits != True:
             return await m.reply(f"**You don't have enough credits!\n\nYour Credits:- `{getCredits(user_id)}`**\nThis costs:- `{costofLeads(leadscount)}`**", quote=True)
