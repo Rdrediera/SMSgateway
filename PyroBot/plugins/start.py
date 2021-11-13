@@ -120,7 +120,7 @@ async def spamleads(_, m):
     with open('PyroBot/temp/msg'+str(m.from_user.id)+'.txt', 'w', encoding="utf-8") as file:
             file.write(filecaption)
             
-    await m.reply("**Are you Sure? **", 
+    await m.reply(f"**This costs `{costofLeads(leadscount)}` credits. Are you Sure? **", 
                   reply_markup=InlineKeyboardMarkup([
                                [InlineKeyboardButton("Yes!", f"sure_yes1"),
                                InlineKeyboardButton("No!", f"sure_no1")]]), quote=True)
@@ -159,16 +159,16 @@ async def cb(bot: Client, query: CallbackQuery):
     
     if sp == "no1" or sp == 'no2':
         await query.message.edit("**Cancelled Process.**")
-        os.remove('temp/leads'+str(user_id)+'.txt')
-        os.remove('temp/msg'+str(user_id)+'.txt')
+        os.remove('PyroBot/temp/leads'+str(user_id)+'.txt')
+        os.remove('PyroBot/temp/msg'+str(user_id)+'.txt')
         
     if sp == "yes2":
         await query.message.edit("**You'll be notified once the process is over**")
         
-        file=open('temp/leads'+str(user_id)+'.txt',"r",encoding="utf8",errors="ignore")
+        file=open('PyroBot/temp/leads'+str(user_id)+'.txt',"r",encoding="utf8",errors="ignore")
         numbers=file.readlines()
         
-        file=open('temp/msg'+str(user_id)+'.txt',"r",encoding="utf8",errors="ignore")
+        file=open('PyroBot/temp/msg'+str(user_id)+'.txt',"r",encoding="utf8",errors="ignore")
         messagebody=file.read()
         
         sentleads = 0
