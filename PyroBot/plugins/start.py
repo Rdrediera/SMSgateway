@@ -7,6 +7,8 @@ import os
 from requests.api import head
 from __main__ import *
 
+from PyroBot.__main__ import ADMIN_IDS
+
 
 @Client.on_message(filters.command(["start"]))
 async def startcmd(client:Client, message:Message):
@@ -19,9 +21,16 @@ async def startcmd(client:Client, message:Message):
        
 @Client.on_message(filters.command(["cmds"]))
 async def ook(_, m):
-    await m.reply("**Which commands would you like to check?**", 
+    if m.from_user.id not in ADMIN_IDS:
+        return await m.reply("**Which commands would you like to check?**", 
                   reply_markup=InlineKeyboardMarkup([
                                [InlineKeyboardButton("☎️ SMS Gateway Commands", f"help_gateway")]]))
+    
+    if m.from_user.id in ADMIN_IDS:
+        return await m.reply("**Which commands would you like to check?**", 
+                  reply_markup=InlineKeyboardMarkup([
+                               [InlineKeyboardButton("☎️ SMS Gateway Commands", f"help_gateway")],
+                               [InlineKeyboardButton("🎖 Admin Commands", f"help_admin")]]))
 
     
 @Client.on_callback_query(filters.regex(r"^help_.*"))
@@ -48,11 +57,31 @@ You can use `{number}` in message to replace it with the phone number"""
                 [InlineKeyboardButton("Back", f"help_back")]
             ]) 
 
-            
+    elif sp == "admin":
+        if user_id not in ADMIN_IDS:
+            return  
+        
+        text = """**━━Admin Commands━━**
+  
+**/credits &lt;userid&gt; | !credits &lt;userid&gt;** - Check credits of a user
+**/upgrade &lt;userid&gt;|&lt;credits&gt; | !upgrade &lt;userid&gt;|&lt;credits&gt;** - Add credits to a user
+**/suspend &lt;userid&gt; | !suspend &lt;userid&gt;** - Ban a premium user
+""" 
+        markup = InlineKeyboardMarkup([
+                [InlineKeyboardButton("Back", f"help_back")]
+            ]) 
+               
     elif sp == "back":
         text = "**Which commands would you like to check?**" 
-        markup=InlineKeyboardMarkup([
+        
+        if user_id not in ADMIN_IDS:
+            markup=InlineKeyboardMarkup([
                                [InlineKeyboardButton("☎️ SMS Gateway Commands", f"help_gateway")]])
+            
+        if user_id in ADMIN_IDS:
+            markup=InlineKeyboardMarkup([
+                               [InlineKeyboardButton("☎️ SMS Gateway Commands", f"help_gateway")],
+                               [InlineKeyboardButton("🎖 Admin Commands", f"help_admin")]])
         
     await query.edit_message_text(text, reply_markup=markup) 
         
