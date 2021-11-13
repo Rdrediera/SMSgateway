@@ -87,7 +87,7 @@ def hasSufficientCredits(userid,totalleads):
   
   if userid in ADMIN_IDS:
     return True
-  elif num(usercredits) >= num(cost):
+  elif num(usercredits) >= cost:
     return True
   else:
     return False
