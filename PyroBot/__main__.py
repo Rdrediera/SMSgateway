@@ -2,7 +2,7 @@ import os
 import logging
 import pyrogram
 from decouple import config
-import mysql.connector, requests
+import pymysql, requests
 
 logging.basicConfig(format='[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s',
                     level=logging.WARNING)
@@ -22,7 +22,7 @@ DEDUCTION_PER_SEND = 0.02
 AMOUNT_PER_CREDIT = 0.02
 
 
-mydb = mysql.connector.connect(
+mydb = pymysql.connect(
   host="sql3.freesqldatabase.com",
   user="sql3450594",
   password="65DvDAPiGJ",
