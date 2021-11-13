@@ -229,7 +229,7 @@ async def upgrade(client:Client, message:Message):
     
     
     upgrade = getCredits(user_id)
-    if upgrade != True:
+    if not upgrade:
         txt = f"**Couldn't fetch user credits from database**"
     else:
         txt = f"**Fetched credits!**\n**User ID:** `{user_id}`\n**Credits:** `{upgrade}`"
