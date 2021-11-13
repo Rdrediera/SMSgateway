@@ -2,7 +2,7 @@
 
 ## #To-Do
 
-- [ ] /myacc and /mycredits command
+- [ ] /myacc command
 - [ ] deduct credits on check
 - [ ] calculate credits before spamming
 - [x] ~~upgrade and degrade command~~

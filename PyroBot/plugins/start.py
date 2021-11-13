@@ -7,7 +7,7 @@ import os
 from requests.api import head
 from __main__ import *
 
-from PyroBot.__main__ import ADMIN_IDS
+from PyroBot.__main__ import ADMIN_IDS, getCredits
 
 
 @Client.on_message(filters.command(["start"]))
@@ -32,7 +32,14 @@ async def ook(_, m):
                                [InlineKeyboardButton("☎️ SMS Gateway Commands", f"help_gateway")],
                                [InlineKeyboardButton("🎖 Admin Commands", f"help_admin")]]))
 
-    
+@Client.on_message(filters.command(["myacc"]))
+async def myaccmd(client:Client, message:Message):
+    user_id = message.from_user.id
+    if not isPremium(user_id):
+        return
+    user_mention = message.from_user.mention if message.from_user else message.from_user.title  
+    await message.reply_text(f'**Name:** `{user_mention}`\n**UserID:** `{user_id}`\n**Type:** `Premium`\n**Credits:** `{getCredits(user_id)}`')
+        
 @Client.on_callback_query(filters.regex(r"^help_.*"))
 async def cbstart(_, query: CallbackQuery):
     data = query.data
@@ -49,7 +56,6 @@ async def cbstart(_, query: CallbackQuery):
 **/spam | !spam** - Send as reply to leads file with message as caption
 **/test &lt;number&gt; | !test &lt;number&gt;** - Test bot working status
 **/myacc | !myacc** - Your details
-**/mycredits | !mycredits** - Check your credits
 
 
 You can use `{number}` in message to replace it with the phone number""" 
