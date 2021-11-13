@@ -129,7 +129,7 @@ if __name__ == "__main__" :
         api_hash=API_HASH,
         plugins=plugins
     )
-    app.run()
     print("Bot has been successfully deployed!")
+    app.run()
     
     
