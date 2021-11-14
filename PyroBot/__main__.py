@@ -106,7 +106,7 @@ def hasSufficientCredits(userid,totalleads):
 def deductCredits(userid,totalleads):
   usercredits = getCredits(userid)
   cost = costofLeads(totalleads)
-  newcredits = Decimal(usercredits)-Decimal(str(cost))
+  newcredits = round(float(usercredits)-float(cost),2)
   
   sql = f"UPDATE premium SET credits = '{newcredits}' WHERE userid = '{userid}'"
   mycursor.execute(sql)
