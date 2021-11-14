@@ -4,7 +4,7 @@
 ## To-Do
 
 - [x] ~~/myacc command~~
-- [ ] deduct credits on check
+- [x] ~~deduct credits on check~~
 - [x] ~~calculate credits before spamming~~
 - [x] ~~upgrade and degrade command~~
 - [x] ~~different keyboard for admin and users~~
