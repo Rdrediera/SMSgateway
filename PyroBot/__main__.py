@@ -64,7 +64,16 @@ def addPremium(userid,credits):
         mycursor.execute(sql)
         mydb.commit()
         return True
+
+def setCredits(userid,credits):
+    if isPremium(userid) != True:
+        return False
+    elif isPremium(userid) == True:
         
+        sql = f"UPDATE premium SET credits = '{credits}' WHERE userid = '{userid}'"
+        mycursor.execute(sql)
+        mydb.commit()
+        return True        
 
 def banPremium(userid):
   if userid in ADMIN_IDS:

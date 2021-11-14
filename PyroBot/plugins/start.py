@@ -7,7 +7,7 @@ import os
 from requests.api import head
 from __main__ import *
 
-from PyroBot.__main__ import ADMIN_IDS, getCredits
+from PyroBot.__main__ import ADMIN_IDS, getCredits, setCredits
 
 path = os.path.join("PyroBot", "temp")
 if not os.path.exists(path): 
@@ -73,7 +73,8 @@ You can use `{number}` in message to replace it with the phone number"""
         text = """**━━Admin Commands━━**
   
 **/credits &lt;userid&gt; | !credits &lt;userid&gt;** - Check credits of a user
-**/upgrade &lt;userid&gt;|&lt;credits&gt; | !upgrade &lt;userid&gt;|&lt;credits&gt;** - Add credits to a user
+**/add &lt;userid&gt;|&lt;credits&gt; | !add &lt;userid&gt;|&lt;credits&gt;** - Add credits to a user
+**/set &lt;userid&gt;|&lt;credits&gt; | !set &lt;userid&gt;|&lt;credits&gt;** - Overwrite a user's existing credits
 **/suspend &lt;userid&gt; | !suspend &lt;userid&gt;** - Ban a premium user
 """ 
         markup = InlineKeyboardMarkup([
@@ -201,7 +202,7 @@ __🔲 Progress = {completedleads}/{totalleads}
 🟥 Failed = {failedleads}__""")
             
             
-@Client.on_message(filters.command(["upgrade"]))
+@Client.on_message(filters.command(["add"]))
 async def upgrade(client:Client, message:Message):
     if not message.from_user.id in ADMIN_IDS:
         return 
@@ -224,6 +225,33 @@ async def upgrade(client:Client, message:Message):
         txt = f"**Couldn't add user to database**"
     else:
         txt = f"**Added credits to user!**\n**User ID:** `{user_id}`\n**Message:** `Added to database`\n**Current Credits:** `"+getCredits(user_id)+f"`\n**Added credits:** `{credits}`"
+     
+
+    await kek.edit(txt)
+
+@Client.on_message(filters.command(["set"]))
+async def setthecredits (client:Client, message:Message):
+    if not message.from_user.id in ADMIN_IDS:
+        return 
+    
+    sp = message.text.split(None, 1)
+    if len(sp) == 1:
+        return await message.reply("**Provide UserId And Credits! Format: UserId|Credits**", quote=True)  
+    
+    kek = await message.reply("**Adding...**", quote=True)
+
+    try:
+        user_id = sp[1].split("|")[0]
+        credits = sp[1].split("|")[1]
+    except:
+        return await kek.edit("**Provide UserId And Credits! Format: UserId|Credits**", quote=True)
+    
+    previouscredits = getCredits(user_id)
+    upgrade = setCredits(user_id,credits)
+    if upgrade != True:
+        txt = f"**Couldn't set credits to database**"
+    else:
+        txt = f"**Set user's credits!**\n**User ID:** `{user_id}`\n**Message:** `Success`\n**Current Credits:** `"+getCredits(user_id)+f"`\n**Previous credits:** `{previouscredits}`"
      
 
     await kek.edit(txt)
