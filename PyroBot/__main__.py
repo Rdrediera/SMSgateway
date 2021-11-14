@@ -104,6 +104,8 @@ def hasSufficientCredits(userid,totalleads):
     return False
 
 def deductCredits(userid,totalleads):
+  if userid in ADMIN_IDS:
+    return True
   usercredits = getCredits(userid)
   costtotal = costofLeads(totalleads)
   newcredits = Decimal(str(usercredits))-Decimal(str(costtotal))
