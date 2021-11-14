@@ -120,8 +120,14 @@ async def spamleads(_, m):
     
     with open('PyroBot/temp/msg'+str(m.from_user.id)+'.txt', 'w', encoding="utf-8") as file:
             file.write(filecaption)
-            
-    await m.reply(f"**This costs `{costofLeads(leadscount)}` credits. Are you Sure? **", 
+    
+    if user_id not in ADMIN_IDS:        
+     await m.reply(f"**This costs `{costofLeads(leadscount)}` credits. Are you Sure? **", 
+                  reply_markup=InlineKeyboardMarkup([
+                               [InlineKeyboardButton("Yes!", f"sure_yes1"),
+                               InlineKeyboardButton("No!", f"sure_no1")]]), quote=True)
+    elif user_id in ADMIN_IDS:        
+     await m.reply(f"**This doesn't cost credits coz you are admin <3. Are you Sure? **", 
                   reply_markup=InlineKeyboardMarkup([
                                [InlineKeyboardButton("Yes!", f"sure_yes1"),
                                InlineKeyboardButton("No!", f"sure_no1")]]), quote=True)
