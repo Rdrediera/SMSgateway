@@ -192,6 +192,7 @@ async def cb(bot: Client, query: CallbackQuery):
                 failedleads+=1
             
             completedleads+=1
+            sleep(1)
             
         if completedleads == totalleads:
             deductCredits(user_id,totalleads)
