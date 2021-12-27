@@ -24,6 +24,18 @@
             "description": "Admin IDs",
             "required": true,
             "value": ""
+        },"TWILIO_SID": {
+            "description": "Twilio SID",
+            "required": true,
+            "value": ""
+        },"TWILIO_AUTHTOKEN": {
+            "description": "Twilio Auth Token",
+            "required": true,
+            "value": ""
+        },"TWILIO_SERVICEID": {
+            "description": "Twilio Messaging Service ID",
+            "required": true,
+            "value": ""
         }
     },
     "buildpacks": [
