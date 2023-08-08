@@ -26,9 +26,9 @@ AMOUNT_PER_CREDIT = 0.02
 
 mydb = pymysql.connect(
   host="sql3.freesqldatabase.com",
-  user="sql3450594",
-  password="65DvDAPiGJ",
-  database="sql3450594",
+  user="sql3xxx450594",
+  password="65DvxxxDAPiGJ",
+  database="sql3xxx450594",
   autocommit=True
 )
 mycursor = mydb.cursor()
